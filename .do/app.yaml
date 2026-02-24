@@ -1,0 +1,28 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+features:
+- buildpack-stack=ubuntu-22
+ingress:
+  rules:
+  - component:
+      name: heroes-rest-api-demo
+    match:
+      authority:
+        exact: ""
+      path:
+        prefix: /
+name: octopus-app
+region: sfo
+services:
+- environment_slug: python
+  github:
+    branch: main
+    deploy_on_push: false
+    repo: e-b-daniel/heroes-rest-api-demo
+  http_port: 8080
+  instance_count: 1
+  instance_size_slug: apps-s-1vcpu-0.5gb
+  name: heroes-rest-api-demo
+  run_command: fastapi run
+  source_dir: /
